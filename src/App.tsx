@@ -12,7 +12,7 @@ interface State {
 
 interface Csavarbolt {
   id: number;
-  nev: string;
+  tipus: string;
 }
 
 interface CsavarboltListResponse {
@@ -90,7 +90,7 @@ class App extends Component <{}, State>{
       <h2>Csavarok listája</h2>
       <ul>
         {
-          this.state.csavarok.map(csavar => <li>{csavar.nev}</li>)
+          this.state.csavarok.map(csavar => <li>{csavar.tipus}</li>)
         }
       </ul>
     </div>
