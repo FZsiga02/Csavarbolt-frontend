@@ -1,26 +1,51 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+interface State {
+  csavarok: Csavarbolt[];
+  tipus: string;
+  hossz: number;
+  keszlet: number;
+  ar: number;
+}
+
+interface Csavarbolt {
+  id: number;
+  nev: string;
+}
+
+interface CsavarboltListResponse {
+  csavarok: Csavarbolt[];
+}
+
+class App extends Component <{}, State>{
+
+  constructor(props: {}) {
+    super(props);
+
+    this.state = {
+      tipus: '',
+      hossz: 0,
+      keszlet: 0,
+      ar: 0,
+      csavarok: [],
+    }
+  }
+
+  async loadCsavarok() {
+    let response = await fetch('http://localhost:3000/csavar');
+    let data = await response.json() as CsavarboltListResponse;
+    this.setState({
+      csavarok: data.csavarok,
+    })
+  }
+
+  componentDidMount() {
+    this.loadCsavarok();
+  }
+
+  
 }
 
 export default App;
